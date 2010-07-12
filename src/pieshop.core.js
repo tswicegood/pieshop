@@ -70,7 +70,7 @@ try {
         'each': function(callback) {
             this.all(function(objects) {
                 for (var i = 0, len = objects.length; i < len; ++i) {
-                    callback.apply(objects[i]);
+                    callback.apply(objects[i], [objects[i]]);
                 }
             });
         }
