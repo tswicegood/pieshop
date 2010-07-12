@@ -44,6 +44,17 @@ Example usage
         console.log(person.get_full_name());
     });
 
+testing
+=======
+    git clone http://github.com/codysoyland/pieshop.git
+    cd pieshop
+    virtualenv testenv
+    pip install -E testenv -r testing-requirements.txt
+    source testenv/bin/activate
+    pieshoptests/manage.py syncdb --noinput
+    pieshoptests/manage.py runserver
+    open "http://localhost:8000/"
+
 license
 =======
 
