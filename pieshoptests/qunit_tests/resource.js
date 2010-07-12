@@ -1,4 +1,4 @@
-Note = pieshop.core.resource({
+Note = pieshop.resource({
     'resource_uri': '/api/v1/notes/',
     'slug_uppercase': function() {
         return this.slug.toUpperCase();
@@ -20,9 +20,9 @@ test('resource-methods', function () {
 });
 
 test('query-basic', function () {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
 
-    ok(query instanceof pieshop.core.Query, 'query is a Query');
+    ok(query instanceof pieshop.Query, 'query is a Query');
     ok(query.resource == Note, 'query resource is set');
     ok(typeof(query.each) == 'function', 'query method "each" available');
     ok(typeof(query.all) == 'function', 'query method "all" available');
@@ -30,26 +30,26 @@ test('query-basic', function () {
 });
 
 test('query-limit', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     limited_query = query.limit(10);
 
-    ok(limited_query instanceof pieshop.core.Query, 'limit() returns new query');
+    ok(limited_query instanceof pieshop.Query, 'limit() returns new query');
     ok(typeof(query._limit) == 'undefined', 'limit is not on first query.')
     ok(limited_query._limit == 10, 'limit is saved on second instance.')
 });
 
 test('query-offset', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     offset_query = query.offset(10);
 
-    ok(offset_query instanceof pieshop.core.Query, 'offset() returns new query');
+    ok(offset_query instanceof pieshop.Query, 'offset() returns new query');
     ok(offset_query._offset == 10, 'offset is saved')
 });
 
 test('query-copy', function() {
     expect(5);
 
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     equal(typeof(query._limit), 'undefined', 'limit is undefined');
 
     query2 = query.copy({'_limit': 5});
@@ -64,7 +64,7 @@ test('query-copy', function() {
 test('query-filter', function() {
     expect(3);
 
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     equal(typeof(query._filters), 'undefined');
 
     query = query.filter({'slug__startswith': 'a'});
@@ -75,7 +75,7 @@ test('query-filter', function() {
 });
 
 asyncTest('query-filter-startswith', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(2);
 
     query.filter({'slug__startswith': 'a'}).all(function(notes) {
@@ -86,7 +86,7 @@ asyncTest('query-filter-startswith', function() {
 });
 
 asyncTest('query-filter-exact', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(2);
 
     query.filter({'slug': 'first-post'}).all(function(notes) {
@@ -97,7 +97,7 @@ asyncTest('query-filter-exact', function() {
 });
 
 asyncTest('query-filter-bool', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(2);
 
     query.filter({'is_active': false}).all(function(notes) {
@@ -108,7 +108,7 @@ asyncTest('query-filter-bool', function() {
 });
 
 asyncTest('query-filter-multi', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(2);
 
     query.filter({'title__endswith': 'Post'}).filter({'is_active': true}).all(function(notes) {
@@ -119,7 +119,7 @@ asyncTest('query-filter-multi', function() {
 });
 
 asyncTest('query-all', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(3);
 
     query.limit(2).all(function(notes) {
@@ -131,7 +131,7 @@ asyncTest('query-all', function() {
 });
 
 asyncTest('query-offset-limit', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(4);
 
     query = query.limit(1).offset(1);
@@ -146,11 +146,11 @@ asyncTest('query-offset-limit', function() {
 });
 
 asyncTest('query-each', function() {
-    query = pieshop.core.query(Note);
+    query = pieshop.query(Note);
     expect(2);
 
     query.limit(2).each(function(note) {
-        ok(typeof(note.title) == 'string', 'the title is a string');
+        ok(typeof(this.title) == 'string', 'the title is a string');
         start();
     });
 });

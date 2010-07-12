@@ -5,7 +5,7 @@ try {
 } catch(Error) {}
 
 (function (global) {
-    var exporter = global.getExporter('core'),
+    var exporter = global.getExporter(),
         settings = global.require('pieshop.settings');
 
     var dict_copy = function(params) {
@@ -62,10 +62,9 @@ try {
             var query = this.copy({
                     'method': 'GET'
                 }),
-                backend = this.resource['backend'] === undefined ? this.backend : this.resource.backend,
-                transport = this.resource['transport'] === undefined ? this.transport : this.resource.transport,
+                backend = this.resource.backend === undefined ? this.backend : this.resource.backend,
+                transport = this.resource.transport === undefined ? this.transport : this.resource.transport,
                 compiled_query = backend.compile(query);
-            console.log(transport);
             transport.perform(query.method, query.resource, compiled_query, callback);
         },
         'each': function(callback) {

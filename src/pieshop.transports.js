@@ -16,12 +16,12 @@ try {
         var data = compiled_query.data,
             backend = compiled_query.backend;
         jQuery.ajax({
-            'url':resource.resource_uri,
+            'url':resource.prototype.resource_uri,
             'data':data,
             'type':method,
             'success':function(incoming_data) {
                 var resources = backend.build_resources(incoming_data, resource);
-                callback(incoming_data);
+                callback(resources);
             }
         });
     };

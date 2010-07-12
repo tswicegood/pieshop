@@ -9,19 +9,24 @@ function documentNamespace(namespace) {
             return retval;
         },
         'getExporter':function(name) {
+            if(!name) {
+                return function(export_name, to_export) { 
+                    window[namespace][export_name] = to_export;
+                };
+            }
             window[namespace][name] = (window[namespace][name] === undefined) ? {} : window[namespace][name];
             return function(export_name, to_export) {
                 window[namespace][name][export_name] = to_export;
             };
-        },
-    }
+        }
+    };
 }
 
 function commonjsNamespace(exp) {
-    exp['require'] = function(what) {
+    exp.require = function(what) {
         return require(['./',what].join(''));
     };
-    exp['getExporter'] = function(name) {
+    exp.getExporter = function(name) {
         var self = this;
         return function(export_name, to_export) {
             self[export_name] = to_export;
