@@ -9,7 +9,6 @@ try {
         exporter = global.getExporter(),
         core = global.require('core');
     for(var i in core) {
-        console.log(i);
         if(core.hasOwnProperty(i)) {
             exporter(i, core[i]);
         }
