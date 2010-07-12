@@ -12,8 +12,7 @@ api.register(NoteResource())
 
 urlpatterns = patterns('',
     (r'^api/', include(api.urls)),
-    (r'(?P<path>pieshop\.js)', 'django.views.static.serve', {
-        'document_root': os.path.join(settings.BASE_PATH, '../src/'),
-    }),
+    (r'^pieshop_media/(?P<path>.*)$', 'django.views.static.serve', 
+     {'document_root': os.path.realpath(os.path.join(settings.BASE_PATH, '../js/')), 'show_indexes':True}),
     (r'', include('django_qunit.urls')),
 )
