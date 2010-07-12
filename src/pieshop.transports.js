@@ -16,9 +16,11 @@ try {
         var data = compiled_query.data,
             backend = compiled_query.backend;
         jQuery.ajax({
-            'url':resource.prototype.resource_uri,
+            'url':compiled_query.resource_uri,
             'data':data,
             'type':method,
+            'traditional':true,
+            'dataType':'json',
             'success':function(incoming_data) {
                 var resources = backend.build_resources(incoming_data, resource);
                 callback(resources);
