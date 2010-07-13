@@ -27,6 +27,31 @@ try {
             }
         });
     };
+
+    var nodeJsHttpClientTransport = function () {};
+    nodeJsHttpClientTransport.prototype.perform = function(method, resource, compiled_query, callback) {
+        var settings = global.require('pieshop.settings'),
+            http = require('http'),
+            querystring = require('querystring'),
+            hostname = resource.prototype.hostname,
+            hostport = resource.prototype.port ? resource.prototype.port : 80,
+            client = http.createClient(hostport, hostname),
+            data = querystring.stringify(compiled_query.data),
+            uri = [compiled_query.resource_uri, data].join('?'),
+            request = client.request(method, uri, {
+                'host':hostname,
+            });
+        request.end();
+        request.addListener('response', function (response) {
+            response.setEncoding('utf8');
+            response.addListener('data', function(chunk) {
+                var resources = compiled_query.backend.build_resources(JSON.parse(chunk), resource);
+                callback(resources);
+            });
+        }); 
+    };
+
     exporter('jQueryAjaxTransport', new jQueryAjaxTransport());
-})(get_global_object('pieshop'));
+    exporter('nodeJsHttpClientTransport', new nodeJsHttpClientTransport());
+})(get_global_object('pieshop', exp));
 

@@ -56,4 +56,4 @@ try {
 
     exporter('CompiledQuery', CompiledQuery);
     exporter('TastyPieBackend', new TastyPieBackend());
-})(get_global_object('pieshop'));
+})(get_global_object('pieshop', exp));

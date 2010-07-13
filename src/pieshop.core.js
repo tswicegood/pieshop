@@ -79,4 +79,4 @@ try {
     exporter('Query', Query);
     exporter('resource', resource_factory);
     exporter('query', function (Resource) { return new Query(Resource); });
-})(get_global_object('pieshop'));
+})(get_global_object('pieshop', exp));
