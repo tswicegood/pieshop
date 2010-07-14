@@ -1,11 +1,7 @@
 {
     "name": "All",
     "extra_urls": [
-        "/pieshop_media/namespace.js",
-        "/pieshop_media/pieshop.settings.js",
-        "/pieshop_media/pieshop.backends.js",
-        "/pieshop_media/pieshop.transports.js",
-        "/pieshop_media/pieshop.core.js",
+        "/pieshop_media/pieshop.js",
         "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
     ]
 }
