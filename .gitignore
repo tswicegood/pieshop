@@ -1,0 +1,7 @@
+*example.db
+*.pyc
+bin/*
+include/*
+lib/*
+src/qunit
+src/tastypie
