@@ -58,6 +58,15 @@ try {
     get_global_object = require('./namespace').get_global_object;
 } catch(Error) {}
 
+var dict_copy = function(params) {
+    for(var i in params) {
+        if(params.hasOwnProperty(i)) {
+            this[i] = params[i];
+        }
+    }
+};
+
+
 (function (global) {
     var registry = {},
         exporter = global.getExporter('settings');
@@ -96,7 +105,6 @@ try {
         this.data = data;
         this.resource_uri = resource_uri;
     };
-    var dict_copy = function(x) { for(var i in x) { if (x.hasOwnProperty(i)) { this[i] = x[i]; } } };
 
     var TastyPieBackend = function () {};
 
@@ -211,14 +219,6 @@ try {
 (function (global) {
     var exporter = global.getExporter(),
         settings = global.require('pieshop.settings');
-
-    var dict_copy = function(params) {
-        for(var i in params) {
-            if(params.hasOwnProperty(i)) {
-                this[i] = params[i];
-            }
-        }
-    };
 
     var resource_factory = function(opts) {
         var ResourceProto = {},
